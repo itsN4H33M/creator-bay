@@ -1,6 +1,5 @@
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./Pages/User/Home";
-import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Register from "./Pages/User/Register";
 import Login from "./Pages/User/Login";
@@ -9,6 +8,7 @@ import Checkout from "./Pages/User/Checkout";
 import Products from "./Pages/User/Products";
 import Videos from "./Pages/User/Videos";
 import ViewProduct from "./Pages/User/ViewProduct";
+import Header from "./Components/Header";
 
 function App() {
   // to get location of current page

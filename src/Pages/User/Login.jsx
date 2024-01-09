@@ -1,7 +1,43 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginAPI } from '../../Services/allAPI';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
+
+  const [loginDetails, setLoginDetails] = useState({
+    email: '',
+    password: ''
+  })
+
+  const navigate = useNavigate()
+
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    const { email, password } = loginDetails
+
+    if (!email || !password) {
+      toast.warn("Please fill the form completely!")
+    }
+    else {
+      const result = await loginAPI(loginDetails)
+
+      if (result.status === 200) {
+        sessionStorage.setItem("user", JSON.stringify(result.data.existingUser))
+        sessionStorage.setItem("token", result.data.jwtoken)
+
+        toast.success("Login successfull!")
+        setTimeout(() => {
+          navigate('/')
+        }, 3000)
+      }
+      else {
+        toast.error("Login failed")
+      }
+    }
+  }
+
   return (
     <>
       <section className="vh-100" style={{ background: '#9A616D' }}>
@@ -33,10 +69,11 @@ function Login() {
                         <div className="form-outline mb-4">
                           <input
                             type="email"
-                            id="form2Example17"
                             className="form-control form-control-lg"
+                            value={loginDetails.email}
+                            onChange={(e) => { setLoginDetails({ ...loginDetails, email: e.target.value }) }}
                           />
-                          <label className="form-label" htmlFor="form2Example17">
+                          <label className="form-label">
                             Email address
                           </label>
                         </div>
@@ -44,16 +81,17 @@ function Login() {
                         <div className="form-outline mb-4">
                           <input
                             type="password"
-                            id="form2Example27"
                             className="form-control form-control-lg"
+                            value={loginDetails.password}
+                            onChange={(e) => { setLoginDetails({ ...loginDetails, password: e.target.value }) }}
                           />
-                          <label className="form-label" htmlFor="form2Example27">
+                          <label className="form-label">
                             Password
                           </label>
                         </div>
 
                         <div className="pt-1 mb-4">
-                          <button className="btn btn-dark btn-lg btn-block" type="submit">
+                          <button onClick={handleLogin} className="btn btn-dark btn-lg btn-block" type="submit">
                             Login
                           </button>
                         </div>
@@ -73,6 +111,9 @@ function Login() {
           </div>
         </div>
       </section>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000} />
     </>
   );
 }

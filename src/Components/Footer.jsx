@@ -6,7 +6,7 @@ function Footer() {
   return (
     <>
       <div>
-        <Container fluid className='bg-secondary'>
+        <Container fluid style={{backgroundColor:'#371F76'}}>
           <Row>
             <Col lg={3}></Col>
             <Col lg={6} className='d-flex justify-content-center py-3'>
@@ -25,7 +25,7 @@ function Footer() {
             </Col>
             <Col lg={3}></Col>
           </Row>
-          <div className='d-flex justify-content-center text-warning pb-3'>2023 released</div>
+          <div className='text-center text-white-50'>&copy; CreatorBay</div>
         </Container>
       </div>
     </>

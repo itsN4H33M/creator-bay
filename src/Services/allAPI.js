@@ -5,3 +5,8 @@ import { commonAPI } from "./commonAPI";
 export const registerAPI = async (userDetails) => {
   return await commonAPI("POST", `${serverURL}/user/register`, userDetails, "");
 };
+
+// user login
+export const loginAPI = async (loginDetails) => {
+  return await commonAPI("POST", `${serverURL}/user/login`, loginDetails, "");
+};

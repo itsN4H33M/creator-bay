@@ -22,13 +22,13 @@ function Register() {
     }
     else {
       const result = await registerAPI(userDetails)
-      console.log(result);
+      // console.log(result);
 
       if (result.status === 200) {
         toast.success(`${result.data.username} registered succesfully`)
         setTimeout(() => {
           navigate('/user/login')
-        }, 2000)
+        }, 3000)
       }
       else {
         toast.error("Registration failed!")
