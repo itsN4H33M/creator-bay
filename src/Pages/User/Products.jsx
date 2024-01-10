@@ -1,30 +1,40 @@
-import React from 'react'
-import { Card, Container, Row, Col } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Card, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { getProductsAPI } from '../../Services/allAPI'
 
 function Products() {
+
+  const [items, setItems] = useState([])
+
+  const getProducts = async () => {
+    const result = await getProductsAPI()
+    console.log(result.data);
+    setItems(result.data)
+  }
+
+  useEffect(() => {
+    getProducts()
+  }, [])
+
   return (
     <>
-      <Container className='border my-5'>
-        <Card style={{ width: '16rem' }} className='shadow rounded-0'>
-          <Link to={'/product/1'}>
-            <img className='w-100' height={'300px'} src="https://assets.ajio.com/medias/sys_master/root/20230703/YxKm/64a2f7b8eebac147fc48ac73/-473Wx593H-466325670-purple-MODEL2.jpg" alt="" />
-          </Link>
-          
-            <Row className='px-2'>
-              <Col>
-                <p className='mt-2'>T-shirt</p>
-              </Col>
-              <Col></Col>
-              <Col>
-                <i className="fa-solid fa-bag-shopping fa-xl float-end mt-3 me-2"></i>
-              </Col>
-            </Row>
-          
+      {
+        items.map((product) => (
+          <Container className='my-5 border-bottom pb-2' key={product._id}>
+            <Card style={{ width: '16rem' }} className='shadow rounded-0'>
+              <Link to={`/product/${product._id}`} className='text-decoration-none text-black'>
+                <img className='w-100' height={'300px'} src={product.images[0]} alt="" />
+                <div className='d-flex justify-content-between align-items-center px-2 pt-2'>
+                  <p className='fw-bolder '>{product.name}</p>
+                  <p>${product.price}.00</p>
+                </div>
+              </Link>
+            </Card>
+          </Container>
+        ))
+      }
 
-        </Card>
-
-      </Container>
     </>
   )
 }

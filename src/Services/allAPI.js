@@ -10,3 +10,10 @@ export const registerAPI = async (userDetails) => {
 export const loginAPI = async (loginDetails) => {
   return await commonAPI("POST", `${serverURL}/user/login`, loginDetails, "");
 };
+
+// get products
+export const getProductsAPI = async () => {
+  return await commonAPI("GET", `${serverURL}/products`);
+};
+
+// get a product

@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { Button, Col, Container, Row } from 'react-bootstrap'
+import { useParams } from 'react-router-dom';
 
 function ViewProduct() {
 
   const [image, setImage] = useState('')
+  // taking the id parameter
+  const { id } = useParams()
 
   return (
     <>
@@ -20,7 +23,8 @@ function ViewProduct() {
             <img className='w-100' src={image ? image : "https://imgproxy.fourthwall.com/P5f_gfZ7sUGgBQWZULGCflFHKfdd4Sx95f31v2A5aPg/w:900/sm:1/aHR0cHM6Ly9zdG9y/YWdlLmdvb2dsZWFw/aXMuY29tL2Nkbi5m/b3VydGh3YWxsLmNv/bS9vZmZlci9zaF81/YTEyZTQ2MC0xZTI3/LTQ2ODAtYjIwNi03/NzA3NDI0MjcwM2Ev/NGQxNGI1NzgtYjZk/OS00MzMxLWFkZGMt/MWZjOGZjZmQ3ZjZj/LnBuZw.webp"} alt="" />
           </Col>
           <Col lg={6}>
-            <h2>CHEVRON HOODIE</h2>
+            <h2 className='fw-bolder'>CHEVRON HOODIE</h2>
+            <h5 className='my-4 fw-bolder'>$50.00</h5>
             <p>Classic Chevron styling with updated little accents to keep things looking current! Not too flashy but still strong enough to make a statement.</p>
             <ul>
               <li>Fleece with a soft brushed interior</li>

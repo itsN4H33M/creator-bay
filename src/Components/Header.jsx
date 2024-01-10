@@ -36,10 +36,10 @@ function Header() {
               style={{ maxHeight: '100px' }}
               navbarScroll
             >
-              <Nav.Link as={Link} to={'/cart'}><i class="fa-solid fa-basket-shopping fa-lg me-1"></i></Nav.Link>
+              <Nav.Link as={Link} to={'/cart'}><i className="fa-solid fa-basket-shopping fa-lg me-1"></i></Nav.Link>
               {
-                isAuthorised ? <Nav.Link className='btn shadow rounded-5 px-4 ms-3 text-white' style={{backgroundColor: '#896deb'}} onClick={handleLogout}>Logout</Nav.Link> :
-                  <Nav.Link className='btn btn-light shadow rounded-5 px-4 ms-3' style={{backgroundColor: '#896deb'}} as={Link} to={'/user/login'}>Login</Nav.Link>
+                isAuthorised ? <Nav.Link className='btn shadow rounded-5 px-4 ms-3 text-white' style={{ backgroundColor: '#896deb' }} onClick={handleLogout}>Logout</Nav.Link> :
+                  <Nav.Link className='btn btn-light shadow rounded-5 px-4 ms-3' style={{ backgroundColor: '#896deb' }} as={Link} to={'/user/login'}>Login</Nav.Link>
               }
             </Nav>
           </Navbar.Collapse>
