@@ -17,3 +17,6 @@ export const getProductsAPI = async () => {
 };
 
 // get a product
+export const getAProductAPI = async (id) => {
+  return await commonAPI("GET", `${serverURL}/products/${id}`);
+};
