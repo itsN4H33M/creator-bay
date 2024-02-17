@@ -6,7 +6,7 @@ function Footer() {
   return (
     <>
       <div>
-        <Container fluid style={{backgroundColor:'#371F76'}}>
+        <Container  fluid style={{backgroundColor:'#371F76'}}>
           <Row>
             <Col lg={3}></Col>
             <Col lg={6} className='d-flex justify-content-center py-3'>

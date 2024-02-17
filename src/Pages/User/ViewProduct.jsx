@@ -4,14 +4,16 @@ import { useParams } from 'react-router-dom';
 import { getAProductAPI } from '../../Services/allAPI';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/cartSlice';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ViewProduct() {
 
   const [image, setImage] = useState('')
   const [cartDetails, setCartDetails] = useState({
     productDetails: {},
-    counter: 0,
+    counter: 1,
     size: ""
   })
   const navigate = useNavigate()
@@ -42,8 +44,15 @@ function ViewProduct() {
   }
 
   const addItem = (cartDetails) => {
-    dispatch(addToCart(cartDetails))
-    navigate('/cart')
+    const { size } = cartDetails
+    if (size) {
+      dispatch(addToCart(cartDetails))
+      navigate('/cart')
+    }
+    else {
+      toast.warning("Select all the fields")
+    }
+
   }
 
   useEffect(() => {
@@ -110,6 +119,9 @@ function ViewProduct() {
           </Col>
         </Row>
       </Container>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000} />
     </>
   )
 }

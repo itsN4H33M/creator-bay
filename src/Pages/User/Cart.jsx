@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Button, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Table from '@mui/material/Table';
@@ -8,12 +8,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeFromCart } from '../../Redux/cartSlice';
+
 
 function Cart() {
 
-
   const items = useSelector((state) => state.cart)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     console.log(items);
@@ -23,49 +25,54 @@ function Cart() {
     <>
       <div className='vh-100'>
         {
-          items.length > 0 ? <Container>
-            <TableContainer className='bg-light my-5' component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell className='fw-bolder fs-5'>Item</TableCell>
-                    <TableCell className='fw-bolder fs-5' align="right">Quantity</TableCell>
-                    <TableCell className='fw-bolder fs-5' align="right">Price</TableCell>
-                    <TableCell className='fw-bolder fs-5' align="right"></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {
-                    items.map((product) => (
-                      <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                        <TableCell className='d-flex align-items-center' component="th" scope="row">
-                          <img height={'100px'} src={product.productDetails.images[0]} alt="product" />
-                          <div className='ms-2'>
-                            <h5 className='fw-bolder'>{product.productDetails.name}</h5>
-                            <h5 className='text-uppercase'>{product.size}</h5>
-                          </div>
-                        </TableCell>
-                        <TableCell align="right">
-                          <div className='d-flex justify-content-center border rounded float-end'>
-                            <button className='btn fs-5'>-</button>
-                            <input style={{ maxWidth: '3rem' }} className='form-control text-center border border-0 fs-5' type="text" value={product.counter} readOnly />
-                            <button className='btn fs-5'>+</button>
-                          </div>
-                        </TableCell>
-                        <TableCell align="right">
-                          ${product.counter * product.productDetails.price}
-                        </TableCell>
-                        <TableCell style={{ maxWidth: '50px' }} align="right">
-                          <i className="btn btn-danger fa-solid fa-xmark fa-xl py-3"></i>
-                        </TableCell>
-                      </TableRow>
-                    ))
-                  }
+          items.length > 0 ?
+            <Container>
+              <TableContainer className='bg-light my-5' component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell className='fw-bolder fs-5'>Item</TableCell>
+                      <TableCell className='fw-bolder fs-5' align="right">Quantity</TableCell>
+                      <TableCell className='fw-bolder fs-5' align="right">Price</TableCell>
+                      <TableCell className='fw-bolder fs-5' align="right"></TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {
+                      items.map((product) => (
+                        <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                          <TableCell className='d-flex align-items-center' component="th" scope="row">
+                            <img height={'100px'} src={product.productDetails.images[0]} alt="product" />
+                            <div className='ms-2'>
+                              <h5 className='fw-bolder'>{product.productDetails.name}</h5>
+                              <h5 className='text-uppercase'>{product.size}</h5>
+                            </div>
+                          </TableCell>
+                          <TableCell align="right">
+                            <div className='d-flex justify-content-center border rounded float-end'>
+                              <button className='btn fs-5'>-</button>
+                              <input style={{ maxWidth: '3rem' }} className='form-control text-center border border-0 fs-5' type="text" value={product.counter} readOnly />
+                              <button className='btn fs-5'>+</button>
+                            </div>
+                          </TableCell>
+                          <TableCell align="right">
+                            ${product.counter * product.productDetails.price}
+                          </TableCell>
+                          <TableCell style={{ maxWidth: '50px' }} align="right">
+                            <i onClick={() => dispatch(removeFromCart(product))} className="btn btn-danger fa-solid fa-xmark fa-xl py-3"></i>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    }
 
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Container>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <div className='d-flex justify-content-between'>
+                <Link to={'/products'} className='btn btn-primary'>Back to shopping</Link>
+                <Link to={'/checkout'} className='btn btn-primary'>Checkout</Link>
+              </div>
+            </Container>
             :
             <Container className='d-flex justify-content-center align-items-center flex-column my-5'>
               <img className='w-25' src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-7359557-6024626.png" alt="" />
