@@ -7,6 +7,7 @@ import { addToCart } from '../../Redux/cartSlice';
 import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './product.css'
 
 function ViewProduct() {
 
@@ -65,19 +66,19 @@ function ViewProduct() {
 
   return (
     <>
-      <Container className='border p-2 my-5'>
+      <Container className='p-2 my-5' style={{ background: 'linear-gradient(0deg, rgba(255,255,255,1) 10%, rgba(230,230,250,1) 100%)' }}>
         <Row>
           <Col lg={1}>
             {
               cartDetails.productDetails.images?.map((item, index) => (
-                <img key={index} onClick={() => setImage(item)} className='w-100' src={item} alt="" />
+                <img key={index} onClick={() => setImage(item)} className='iconimg border w-100' src={item} alt="" />
               ))
             }
           </Col>
           <Col lg={5}>
             <img className='w-100' src={image ? image : "https://imgproxy.fourthwall.com/P5f_gfZ7sUGgBQWZULGCflFHKfdd4Sx95f31v2A5aPg/w:900/sm:1/aHR0cHM6Ly9zdG9y/YWdlLmdvb2dsZWFw/aXMuY29tL2Nkbi5m/b3VydGh3YWxsLmNv/bS9vZmZlci9zaF81/YTEyZTQ2MC0xZTI3/LTQ2ODAtYjIwNi03/NzA3NDI0MjcwM2Ev/NGQxNGI1NzgtYjZk/OS00MzMxLWFkZGMt/MWZjOGZjZmQ3ZjZj/LnBuZw.webp"} alt="" />
           </Col>
-          <Col lg={6}>
+          <Col lg={6} className='d-flex flex-column '>
             <h2 className='fw-bolder'>{cartDetails.productDetails.name}</h2>
             <h5 className='my-4 fw-bolder'>${cartDetails.productDetails.price}.00</h5>
             <p>{cartDetails.productDetails.description}</p>

@@ -17,6 +17,10 @@ function Cart() {
   const items = useSelector((state) => state.cart)
   const dispatch = useDispatch()
 
+  const total = items?.reduce((accumulator, item) => {
+    return accumulator + (item.productDetails.price * item.counter);
+  }, 0)
+
   useEffect(() => {
     console.log(items);
   }, [])
@@ -27,7 +31,7 @@ function Cart() {
         {
           items.length > 0 ?
             <Container>
-              <TableContainer className='bg-light my-5' component={Paper}>
+              <TableContainer className='bg-light my-5' component={Paper} style={{ background: 'linear-gradient(180deg, rgba(255,255,255,1) 10%, rgba(230,230,250,1) 100%)' }}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                   <TableHead>
                     <TableRow>
@@ -50,9 +54,7 @@ function Cart() {
                           </TableCell>
                           <TableCell align="right">
                             <div className='d-flex justify-content-center border rounded float-end'>
-                              <button className='btn fs-5'>-</button>
                               <input style={{ maxWidth: '3rem' }} className='form-control text-center border border-0 fs-5' type="text" value={product.counter} readOnly />
-                              <button className='btn fs-5'>+</button>
                             </div>
                           </TableCell>
                           <TableCell align="right">
@@ -64,13 +66,17 @@ function Cart() {
                         </TableRow>
                       ))
                     }
-
+                    <TableRow>
+                      <TableCell></TableCell>
+                      <TableCell className='fw-bolder fs-6' align='right'>Total</TableCell>
+                      <TableCell className='fw-bolder fs-6' align='right'>${total}.00</TableCell>
+                    </TableRow>
                   </TableBody>
                 </Table>
               </TableContainer>
               <div className='d-flex justify-content-between'>
-                <Link to={'/products'} className='btn btn-primary'>Back to shopping</Link>
-                <Link to={'/checkout'} className='btn btn-primary'>Checkout</Link>
+                <Link to={'/products'} className='btn btn-dark'>Back to shopping</Link>
+                <Link to={'/checkout'} className='btn btn-dark'>Checkout</Link>
               </div>
             </Container>
             :

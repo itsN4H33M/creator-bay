@@ -1,0 +1,21 @@
+.view {
+  min-height: 75vh;
+}
+
+.myCard {
+  transition: 0.25s;
+}
+
+.myCard:hover {
+  background-color: #896deb;
+  transform: scale(1.05);
+}
+
+.iconimg {
+  transition: 0.25s;
+}
+
+.iconimg:hover {
+  margin-left: 5px;
+  cursor: pointer;
+}
